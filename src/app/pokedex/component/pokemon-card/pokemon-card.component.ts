@@ -8,7 +8,7 @@ import { CommonModule, TitleCasePipe } from '@angular/common';
 @Component({
   selector: 'app-pokemon-card',
   standalone: true,
-  imports: [TitleCasePipe, CommonModule, PokemonTypesComponent],
+  imports: [CommonModule, PokemonTypesComponent],
   templateUrl: './pokemon-card.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './pokemon-card.component.css',

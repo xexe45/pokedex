@@ -1,6 +1,43 @@
-<p>pokemon {{pokemon()?.name}}</p>
-@defer (when pokemon()?.sprites) {
-  <img [style.view-transition-name]="'pokemon-'+pokemon()?.id" loading="lazy" class="w-20" [srcset]="pokemon()?.sprites?.other?.['official-artwork']?.front_default" alt="">
+@defer (when pokemon()) {
+  <section class="h-screen" [ngClass]="bgColor()">
+    <div class="container mx-auto p-8 ">
+      <div class="flex flex-row justify-between items-center">
+       <a [routerLink]="['/pokedex']">
+        <i class="fa-solid fa-arrow-left text-white"></i>
+       </a>
+        <a (click)="updateStorage($event)">
+          <i [ngClass]="{'fa-regular': !isFavorite(), 'fa-solid': isFavorite()}" class="fa-heart text-white"></i>
+        </a>
+      </div>
+      <div class="mt-5">
+       <div class="flex flex-row justify-between items-center mb-2">
+        <h3 class="text-white text-2xl font-bold">{{pokemon()?.name | titlecase}}</h3>
+        <p class="text-white text-xs font-bold"># {{order()}}</p>
+       </div>
+       <app-pokemon-types [types]="pokemon()!.types" [bgType]="bgType()"></app-pokemon-types>
+      </div>
+    </div>
+    <div class="container mx-auto p-8 bg-white rounded-t-3xl h-full w-screen relative mt-[90px]">
+      @defer (when pokemon()?.sprites) {
+       <div class="absolute top-[-130px] left-[110px]">
+          <img [style.view-transition-name]="'pokemon-'+pokemon()?.id" loading="lazy" class="w-40 object-center" [srcset]="pokemon()?.sprites?.other?.['official-artwork']?.front_default" alt="">
+       </div>
+      }@placeholder {
+        <img loading="lazy" class="w-20" srcset="./images/pokeball2.png" alt="">
+      }
+
+      <app-pokemon-info-item
+      [items]="infoItems()"
+      [selected]="infoSelected()"
+      (updateSelected)="updateSelected($event)"> </app-pokemon-info-item>
+
+        <div class="mt-4">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore, architecto.
+        </div>
+
+    </div>
+  </section>
+
 }@placeholder {
-  <img loading="lazy" class="w-20" srcset="./images/pokeball2.png" alt="">
+  <p>Cargando Información....</p>
 }

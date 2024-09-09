@@ -16,10 +16,28 @@ export class PokedexService {
   public nextItems = computed(() => this.pokedexResponse().next);
   public previousItems = computed(() => this.pokedexResponse().previous);
   public pokedex = computed(() => this.pokedexResponse().results);
+  public favorites = signal<number[]>([]);
 
   constructor() {
     const url: string = `${this.apiUrl}/pokemon`;
+    this.getFavorites();
     this.getPokedex(url).subscribe();
+  }
+
+  public getFavorites(): void {
+    this.favorites.set([]);
+    if(localStorage.getItem('poke-favorites')){
+      this.favorites.set(JSON.parse(localStorage.getItem('poke-favorites')!));
+    }
+  }
+
+  public addToFavorites(id: number): void {
+    this.favorites.update( pokemons => !pokemons.includes(id) ? [...pokemons, id] : pokemons.filter(p => p !== id));
+    localStorage.setItem('poke-favorites', JSON.stringify(this.favorites()));
+  }
+
+  public isFavorite(id: number): boolean{
+    return this.favorites().includes(id) ? true : false;
   }
 
   private setPokedex(pokedex: Pokedex): boolean {

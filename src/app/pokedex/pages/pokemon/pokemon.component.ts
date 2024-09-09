@@ -1,17 +1,27 @@
+import { CommonModule } from '@angular/common';
+import { PokemonTypesComponent } from './../../component/pokemon-types/pokemon-types.component';
 import { PokedexService } from './../../services/pokedex.service';
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { switchMap } from 'rxjs';
+import { PokemonInfoItemComponent } from "../../component/pokemon-info-item/pokemon-info-item.component";
 
 @Component({
   selector: 'app-pokemon',
   standalone: true,
-  imports: [],
+  imports: [
+    CommonModule,
+    RouterModule,
+    PokemonTypesComponent,
+    PokemonInfoItemComponent
+],
   templateUrl: './pokemon.component.html',
-  styleUrl: './pokemon.component.css'
+  styleUrl: './pokemon.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export default class PokemonComponent {
+
   private pokedexService = inject(PokedexService);
   private route = inject(ActivatedRoute)
   public pokemon = toSignal(
@@ -19,4 +29,20 @@ export default class PokemonComponent {
       switchMap(({ pokemon }) => this.pokedexService.getPokemonByIdOrName(pokemon))
     )
   );
+  public bgType = computed(() => this.pokemon()?.types ? `bg-${this.pokemon()?.types[0]?.type.name}-type` : 'bg-normal-type');
+  public bgColor = computed(() => this.pokemon()?.types ? `bg-${this.pokemon()?.types[0]?.type.name}` : 'bg-normal');
+  public order = computed(() => this.pokemon()?.order ? this.pokemon()?.order.toString().padStart(3,'0') : '');
+  public isFavorite = computed(() => this.pokemon() ? this.pokedexService.isFavorite(this.pokemon()!.id) : false);
+  public infoItems = signal<string[]>(['About', 'Base Stats', 'Evolution', 'Moves']);
+  public infoSelected = signal<string>(this.infoItems()[0]);
+
+  public updateStorage(event: Event): void {
+    event.preventDefault();
+    this.pokedexService.addToFavorites(this.pokemon()!.id);
+  }
+
+  public updateSelected(item: string){
+    console.log(item);
+    this.infoSelected.set(item);
+  }
 }
