@@ -1,3 +1,4 @@
+import { About } from './../interfaces/api-pokemon-about-response.interface';
 import { PokemonInfo } from './../interfaces/api-pokemon-reponse.interface';
 import { catchError, map, Observable, of, throwError } from 'rxjs';
 import { environment } from './../../../environments/environment';
@@ -64,5 +65,10 @@ export class PokedexService {
   public getPokemonByIdOrName(query: string): Observable<PokemonInfo> {
     const url: string = `${this.apiUrl}/pokemon/${query}`;
     return this.http.get<PokemonInfo>(url);
+  }
+
+  public getPokemonAboutById(id: number): Observable<About> {
+    const url: string = `${this.apiUrl}/pokemon-species/${id}`;
+    return this.http.get<About>(url);
   }
 }

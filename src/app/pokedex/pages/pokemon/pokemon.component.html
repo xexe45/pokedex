@@ -1,43 +1,48 @@
 @defer (when pokemon()) {
-  <section class="h-screen" [ngClass]="bgColor()">
-    <div class="container mx-auto p-8 ">
-      <div class="flex flex-row justify-between items-center">
-       <a [routerLink]="['/pokedex']">
+<section class="h-screen" [ngClass]="bgColor()">
+  <div class="container mx-auto p-8 ">
+    <div class="flex flex-row justify-between items-center">
+      <a [routerLink]="['/pokedex']">
         <i class="fa-solid fa-arrow-left text-white"></i>
-       </a>
-        <a (click)="updateStorage($event)">
-          <i [ngClass]="{'fa-regular': !isFavorite(), 'fa-solid': isFavorite()}" class="fa-heart text-white"></i>
-        </a>
-      </div>
-      <div class="mt-5">
-       <div class="flex flex-row justify-between items-center mb-2">
+      </a>
+      <a (click)="updateStorage($event)">
+        <i [ngClass]="{'fa-regular': !isFavorite(), 'fa-solid': isFavorite()}" class="fa-heart text-white"></i>
+      </a>
+    </div>
+    <div class="mt-5">
+      <div class="flex flex-row justify-between items-center mb-2">
         <h3 class="text-white text-2xl font-bold">{{pokemon()?.name | titlecase}}</h3>
         <p class="text-white text-xs font-bold"># {{order()}}</p>
-       </div>
-       <app-pokemon-types [types]="pokemon()!.types" [bgType]="bgType()"></app-pokemon-types>
       </div>
+      <app-pokemon-types [types]="pokemon()!.types" [bgType]="bgType()"></app-pokemon-types>
     </div>
-    <div class="container mx-auto p-8 bg-white rounded-t-3xl h-full w-screen relative mt-[90px]">
-      @defer (when pokemon()?.sprites) {
-       <div class="absolute top-[-130px] left-[110px]">
-          <img [style.view-transition-name]="'pokemon-'+pokemon()?.id" loading="lazy" class="w-40 object-center" [srcset]="pokemon()?.sprites?.other?.['official-artwork']?.front_default" alt="">
-       </div>
-      }@placeholder {
-        <img loading="lazy" class="w-20" srcset="./images/pokeball2.png" alt="">
+  </div>
+  <div class="container mx-auto p-8 bg-white rounded-t-3xl h-full w-screen relative mt-[90px]">
+    @defer (when pokemon()?.sprites) {
+    <div class="absolute top-[-130px] left-[110px]">
+      <img [style.view-transition-name]="'pokemon-'+pokemon()?.id" loading="lazy" class="w-40 object-center"
+        [srcset]="pokemon()?.sprites?.other?.['official-artwork']?.front_default" alt="">
+    </div>
+    }@placeholder {
+    <img loading="lazy" class="w-20" srcset="./images/pokeball2.png" alt="">
+    }
+
+    <app-pokemon-info-item [items]="infoItems()" [selected]="infoSelected()" (updateSelected)="updateSelected($event)">
+    </app-pokemon-info-item>
+
+    <div class="mt-4">
+      @switch (infoSelected()) {
+      @case ('About') {
+      <app-pokemon-info-about [abilities]="pokemon()!.abilities" [weight]="pokemon()!.weight" [height]="pokemon()!.height" [id]="pokemon()!.id">
+      </app-pokemon-info-about>
+      }
       }
 
-      <app-pokemon-info-item
-      [items]="infoItems()"
-      [selected]="infoSelected()"
-      (updateSelected)="updateSelected($event)"> </app-pokemon-info-item>
-
-        <div class="mt-4">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore, architecto.
-        </div>
-
     </div>
-  </section>
+
+  </div>
+</section>
 
 }@placeholder {
-  <p>Cargando Información....</p>
+<p>Cargando Información....</p>
 }

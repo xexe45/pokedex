@@ -1,3 +1,4 @@
+import { PokemonInfoAboutComponent } from './../../component/pokemon-info-about/pokemon-info-about.component';
 import { CommonModule } from '@angular/common';
 import { PokemonTypesComponent } from './../../component/pokemon-types/pokemon-types.component';
 import { PokedexService } from './../../services/pokedex.service';
@@ -14,7 +15,8 @@ import { PokemonInfoItemComponent } from "../../component/pokemon-info-item/poke
     CommonModule,
     RouterModule,
     PokemonTypesComponent,
-    PokemonInfoItemComponent
+    PokemonInfoItemComponent,
+    PokemonInfoAboutComponent
 ],
   templateUrl: './pokemon.component.html',
   styleUrl: './pokemon.component.css',
@@ -23,9 +25,11 @@ import { PokemonInfoItemComponent } from "../../component/pokemon-info-item/poke
 export default class PokemonComponent {
 
   private pokedexService = inject(PokedexService);
-  private route = inject(ActivatedRoute)
+  private route = inject(ActivatedRoute);
+  public pokemonName = signal<string>('');
   public pokemon = toSignal(
-    this.route.params.pipe(
+    this.route.params
+    .pipe(
       switchMap(({ pokemon }) => this.pokedexService.getPokemonByIdOrName(pokemon))
     )
   );
@@ -38,6 +42,7 @@ export default class PokemonComponent {
 
   public updateStorage(event: Event): void {
     event.preventDefault();
+    console.log('pokemon',this.pokemon());
     this.pokedexService.addToFavorites(this.pokemon()!.id);
   }
 
