@@ -32,10 +32,14 @@
 
     <div class="mt-4">
       @switch (infoSelected()) {
-      @case ('About') {
-      <app-pokemon-info-about [abilities]="pokemon()!.abilities" [weight]="pokemon()!.weight" [height]="pokemon()!.height" [id]="pokemon()!.id">
-      </app-pokemon-info-about>
-      }
+        @case ('About') {
+        <app-pokemon-info-about [abilities]="pokemon()!.abilities" [weight]="pokemon()!.weight"
+          [height]="pokemon()!.height" [id]="pokemon()!.id">
+        </app-pokemon-info-about>
+        }
+        @case ('Base Stats') {
+          <app-pokemon-base-stats [stats]="pokemon()!.stats"></app-pokemon-base-stats>
+        }
       }
 
     </div>

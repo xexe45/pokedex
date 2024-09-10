@@ -1,3 +1,4 @@
+import { PokemonBaseStatsComponent } from './../../component/pokemon-base-stats/pokemon-base-stats.component';
 import { PokemonInfoAboutComponent } from './../../component/pokemon-info-about/pokemon-info-about.component';
 import { CommonModule } from '@angular/common';
 import { PokemonTypesComponent } from './../../component/pokemon-types/pokemon-types.component';
@@ -16,7 +17,8 @@ import { PokemonInfoItemComponent } from "../../component/pokemon-info-item/poke
     RouterModule,
     PokemonTypesComponent,
     PokemonInfoItemComponent,
-    PokemonInfoAboutComponent
+    PokemonInfoAboutComponent,
+    PokemonBaseStatsComponent
 ],
   templateUrl: './pokemon.component.html',
   styleUrl: './pokemon.component.css',
