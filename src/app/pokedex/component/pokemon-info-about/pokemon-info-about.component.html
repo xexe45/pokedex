@@ -11,7 +11,7 @@
       <p class="text-slate-700 text-sm">{{species()?.genus}}</p>
       <p class="text-slate-700 text-sm">{{heightCm()}} cm</p>
       <p class="text-slate-700 text-sm">{{weightKg()}} kg</p>
-      <p class="text-slate-700 text-sm">{{abilitiesJoin()}}</p>
+      <p class="text-slate-700 text-sm">{{abilitiesJoin() | titlecase }}</p>
     </div>
   </div>
   <h3 class="mt-4 text-md text-slate-600 font-semibold">Breeding</h3>
@@ -24,14 +24,14 @@
     <div class="flex flex-col gap-2">
       <div class="flex flex-row gap-5">
         <p class="text-slate-700 text-sm">
-          <i class="fa-solid fa-mars"></i> 87.5%
+          <i class="fa-solid fa-mars text-[#A3ACE9]"></i> {{male()}}%
         </p>
         <p class="text-slate-700 text-sm">
-          <i class="fa-solid fa-transgender"></i> 12.5%
+          <i class="fa-solid fa-transgender text-[#F5A9C5]"></i> {{female()}}%
         </p>
       </div>
-      <p class="text-slate-700 text-sm">Monster</p>
-      <p class="text-slate-700 text-sm">Grass</p>
+      <p class="text-slate-700 text-sm">{{ eggGroups()?.name | titlecase }}</p>
+      <p class="text-slate-700 text-sm">{{ eggCycle()?.name | titlecase }}</p>
     </div>
   </div>
 }@placeholder {

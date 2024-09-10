@@ -11,7 +11,7 @@ import { ChangeDetectionStrategy, Component, input, output } from '@angular/core
   styleUrl: './pokemon-info-item.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
-    class: 'flex flex-wrap flex-row justify-between items-center gap-4'
+    class: 'flex flex-wrap flex-row justify-between items-center gap-4 md:justify-evenly'
   }
 })
 export class PokemonInfoItemComponent {
