@@ -1,3 +1,4 @@
+import { PokemonImagePipe } from './../../pipes/pokemon-image.pipe';
 import { PokemonTypesComponent } from './../pokemon-types/pokemon-types.component';
 import { PokedexService } from './../../services/pokedex.service';
 import { PokemonInfo } from './../../interfaces/api-pokemon-reponse.interface';
@@ -8,7 +9,7 @@ import { CommonModule, TitleCasePipe } from '@angular/common';
 @Component({
   selector: 'app-pokemon-card',
   standalone: true,
-  imports: [CommonModule, PokemonTypesComponent],
+  imports: [CommonModule, PokemonTypesComponent, PokemonImagePipe],
   templateUrl: './pokemon-card.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './pokemon-card.component.css',

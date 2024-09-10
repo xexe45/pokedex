@@ -10,7 +10,7 @@
     <div class="self-end">
       @defer (when pokemon().sprites) {
       <img [style.view-transition-name]="'pokemon-'+pokemon().id" loading="lazy" class="w-20"
-        [srcset]="pokemon().sprites.other?.['official-artwork']?.front_default" alt="">
+        [srcset]="pokemon().id | pokemonImage" alt="">
       }@placeholder {
       <img loading="lazy" class="w-20" srcset="./images/pokeball2.png" alt="">
       }

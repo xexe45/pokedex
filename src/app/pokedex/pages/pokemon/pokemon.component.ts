@@ -1,3 +1,5 @@
+import { PokemonImagePipe } from './../../pipes/pokemon-image.pipe';
+import { PokemonEvolutionComponent } from './../../component/pokemon-evolution/pokemon-evolution.component';
 import { PokemonBaseStatsComponent } from './../../component/pokemon-base-stats/pokemon-base-stats.component';
 import { PokemonInfoAboutComponent } from './../../component/pokemon-info-about/pokemon-info-about.component';
 import { CommonModule } from '@angular/common';
@@ -15,10 +17,12 @@ import { PokemonInfoItemComponent } from "../../component/pokemon-info-item/poke
   imports: [
     CommonModule,
     RouterModule,
+    PokemonImagePipe,
     PokemonTypesComponent,
     PokemonInfoItemComponent,
     PokemonInfoAboutComponent,
-    PokemonBaseStatsComponent
+    PokemonBaseStatsComponent,
+    PokemonEvolutionComponent
 ],
   templateUrl: './pokemon.component.html',
   styleUrl: './pokemon.component.css',
@@ -41,6 +45,7 @@ export default class PokemonComponent {
   public isFavorite = computed(() => this.pokemon() ? this.pokedexService.isFavorite(this.pokemon()!.id) : false);
   public infoItems = signal<string[]>(['About', 'Base Stats', 'Evolution', 'Moves']);
   public infoSelected = signal<string>(this.infoItems()[0]);
+  public evolutionRoute = signal<string>('');
 
   public updateStorage(event: Event): void {
     event.preventDefault();
@@ -51,5 +56,9 @@ export default class PokemonComponent {
   public updateSelected(item: string){
     console.log(item);
     this.infoSelected.set(item);
+  }
+
+  public setEvolutionRoute(url: string){
+    this.evolutionRoute.set(url);
   }
 }

@@ -2,7 +2,7 @@ import { Ability } from './../../interfaces/api-pokemon-reponse.interface';
 import { About } from './../../interfaces/api-pokemon-about-response.interface';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { PokedexService } from './../../services/pokedex.service';
-import { Component, inject, input, signal, effect, computed, OnDestroy } from '@angular/core';
+import { Component, inject, input, signal, effect, computed, OnDestroy, output } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { TitleCasePipe } from '@angular/common';
 
@@ -22,9 +22,10 @@ export class PokemonInfoAboutComponent implements OnDestroy {
   public id = input.required<number>();
   public height = input.required<number>();
   public weight = input.required<number>();
+  public abilities = input.required<Ability[]>();
+  public evolutionRoute = output<string>();
   public heightCm = computed(() => this.height() * 10);
   public weightKg = computed(() => this.weight() / 10);
-  public abilities = input.required<Ability[]>();
   public abilitiesJoin = computed(() => (this.abilities().map(a => a.ability?.name)).join(', '));
   public about = signal<About>({} as About);
   public texts = computed(() => this.about().flavor_text_entries?.filter(f => f.language?.name === 'es'));
@@ -38,7 +39,8 @@ export class PokemonInfoAboutComponent implements OnDestroy {
     .subscribe({
       next: (data) =>  {
         this.about.set(data);
-        console.log(this.about())
+        this.evolutionRoute.emit(this.about().evolution_chain?.url);
+        console.log(this.about());
       },
       error: (err) => {
         console.log('error', err)

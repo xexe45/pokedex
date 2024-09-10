@@ -21,7 +21,7 @@
     @defer (when pokemon()?.sprites) {
     <div class="absolute top-[-130px] left-[110px]">
       <img [style.view-transition-name]="'pokemon-'+pokemon()?.id" loading="lazy" class="w-40 object-center"
-        [srcset]="pokemon()?.sprites?.other?.['official-artwork']?.front_default" alt="">
+        [srcset]="pokemon()!.id | pokemonImage" alt="">
     </div>
     }@placeholder {
     <img loading="lazy" class="w-20" srcset="./images/pokeball2.png" alt="">
@@ -33,12 +33,15 @@
     <div class="mt-4">
       @switch (infoSelected()) {
         @case ('About') {
-        <app-pokemon-info-about [abilities]="pokemon()!.abilities" [weight]="pokemon()!.weight"
+        <app-pokemon-info-about (evolutionRoute)="setEvolutionRoute($event)" [abilities]="pokemon()!.abilities" [weight]="pokemon()!.weight"
           [height]="pokemon()!.height" [id]="pokemon()!.id">
         </app-pokemon-info-about>
         }
         @case ('Base Stats') {
           <app-pokemon-base-stats [stats]="pokemon()!.stats"></app-pokemon-base-stats>
+        }
+        @case ('Evolution') {
+          <app-pokemon-evolution [evolutionUrl]="evolutionRoute()"></app-pokemon-evolution>
         }
       }
 
