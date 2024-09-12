@@ -5,7 +5,11 @@
     <div class="flex flex-row gap-4 flex-grow justify-start items-center">
       <div class="flex flex-col gap-2 items-start basis-1/3">
         <div class="rounded-full bg-gray-100 p-2">
-          <img class="w-14" [srcset]="firstEvolution() | pokemonImage" alt="">
+          @defer (when firstEvolution()) {
+            <img class="w-14" [srcset]="firstEvolution() | pokemonImage" alt="">
+          }@placeholder {
+            <img loading="lazy" class="w-20" srcset="./images/pokeball2.png" alt="">
+          }
         </div>
         <h3 class="text-xs text-slate-700 font-semibold ml-2">
           {{firstEvolutionName() | titlecase}}
@@ -21,7 +25,11 @@
           </div>
           <div class="flex flex-col gap-2 items-center">
             <div class="rounded-full bg-gray-100 p-2">
-              <img class="w-14" [srcset]="extractPokemonSpecieId(evolve.species.url) | pokemonImage" alt="">
+              @defer (when evolve.species) {
+                <img class="w-14" [srcset]="extractPokemonSpecieId(evolve.species.url) | pokemonImage" alt="">
+              }@placeholder {
+                <img loading="lazy" class="w-20" srcset="./images/pokeball2.png" alt="">
+              }
             </div>
             <h3 class="text-xs text-slate-700 font-semibold">{{evolve.species.name | titlecase}}</h3>
           </div>
@@ -37,7 +45,11 @@
     <div class="flex flex-row gap-6 flex-grow justify-start items-center">
       <div class="flex flex-col gap-2 items-start basis-1/3">
         <div class="rounded-full bg-gray-100 p-2">
-          <img class="w-14" [srcset]="extractPokemonSpecieId(evolve.species.url) | pokemonImage" alt="">
+          @defer (when evolve.species) {
+            <img class="w-14" [srcset]="extractPokemonSpecieId(evolve.species.url) | pokemonImage" alt="">
+          }@placeholder {
+            <img loading="lazy" class="w-20" srcset="./images/pokeball2.png" alt="">
+          }
         </div>
         <h3 class="text-xs text-slate-700 font-semibold ml-2">
           {{evolve.species.name | titlecase}}
@@ -51,7 +63,11 @@
         </div>
         <div class="flex flex-col gap-2 items-center">
           <div class="rounded-full bg-gray-100 p-2">
-            <img class="w-14" [srcset]="extractPokemonSpecieId(item.species.url) | pokemonImage" alt="">
+            @defer (when evolve.species) {
+              <img class="w-14" [srcset]="extractPokemonSpecieId(item.species.url) | pokemonImage" alt="">
+            }@placeholder {
+              <img loading="lazy" class="w-20" srcset="./images/pokeball2.png" alt="">
+            }
           </div>
           <h3 class="text-xs text-slate-700 font-semibold">{{item.species.name | titlecase}}</h3>
         </div>
