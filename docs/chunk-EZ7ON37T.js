@@ -1,0 +1,1 @@
+import{_ as i}from"./chunk-SGWCVCL6.js";var n=(()=>{class t{transform(e){return`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/${e}.png`}static \u0275fac=function(r){return new(r||t)};static \u0275pipe=i({name:"itemImage",type:t,pure:!0,standalone:!0})}return t})();export{n as a};
