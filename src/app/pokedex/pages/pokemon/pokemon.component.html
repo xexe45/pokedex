@@ -43,6 +43,9 @@
         @case ('Evolution') {
           <app-pokemon-evolution [evolutionUrl]="evolutionRoute()"></app-pokemon-evolution>
         }
+        @case ('Moves') {
+          <app-pokemon-moves [moves]="pokemon()!.moves"></app-pokemon-moves>
+        }
       }
 
     </div>

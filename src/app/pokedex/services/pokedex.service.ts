@@ -1,3 +1,4 @@
+import { MoveResponse } from './../interfaces/api-pokedex-move-response.interface';
 import { Evolution } from './../interfaces/api-pokedex-evolution-response.interface';
 import { About } from './../interfaces/api-pokemon-about-response.interface';
 import { PokemonInfo } from './../interfaces/api-pokemon-reponse.interface';
@@ -75,5 +76,9 @@ export class PokedexService {
 
   public getEvolutionChain(url: string): Observable<Evolution>{
     return this.http.get<Evolution>(url);
+  }
+
+  public getMoveInformation(url: string): Observable<MoveResponse>{
+    return this.http.get<MoveResponse>(url);
   }
 }

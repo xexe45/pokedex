@@ -1,3 +1,4 @@
+import { PokemonMovesComponent } from './../../component/pokemon-moves/pokemon-moves.component';
 import { PokemonImagePipe } from './../../pipes/pokemon-image.pipe';
 import { PokemonEvolutionComponent } from './../../component/pokemon-evolution/pokemon-evolution.component';
 import { PokemonBaseStatsComponent } from './../../component/pokemon-base-stats/pokemon-base-stats.component';
@@ -22,7 +23,8 @@ import { PokemonInfoItemComponent } from "../../component/pokemon-info-item/poke
     PokemonInfoItemComponent,
     PokemonInfoAboutComponent,
     PokemonBaseStatsComponent,
-    PokemonEvolutionComponent
+    PokemonEvolutionComponent,
+    PokemonMovesComponent
 ],
   templateUrl: './pokemon.component.html',
   styleUrl: './pokemon.component.css',
